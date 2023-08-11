@@ -1,0 +1,88 @@
+name: IaC Provision Frontend Whisper
+on:
+  # workflow_dispatch:
+
+  push:
+    branches:
+      - dev
+      # - prod
+
+permissions:
+  contents: read
+
+jobs:
+  tf-plan:
+    name: Terraform plan 
+    runs-on: ubuntu-latest
+    env:
+      TF_VAR_region: ${{ vars.REGION }}
+      TF_VAR_domain_name: ${{ vars.DOMAIN_NAME }}
+      TF_VAR_subdomain_name: ${{ vars.SUBDOMAIN_NAME }}
+      TF_VAR_acm_certificate_arn: ${{ secrets.ACM_CERTIFICATE_ARN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.REGION }}
+
+      - name: Set name environment
+        run: |
+          echo "environment=$GITHUB_REF_NAME" >> $GITHUB_ENV
+          # echo "environment=${{ github.event.inputs.choice-branch }}" >> $GITHUB_ENV
+
+      - name: Terraform Workflow
+        working-directory: infrastructure/terraform/environments/${{ env.environment }}/frontend-whisper
+        run: |
+          terraform init
+          terraform validate
+          terraform plan -out "planfile"
+
+      - name: Archive plan artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: planfile
+          path: infrastructure/terraform/environments/${{ env.environment }}/frontend-whisper/planfile
+
+  tf-apply:
+    needs: tf-plan
+    name: Terraform apply 
+    runs-on: ubuntu-latest
+    env:
+      TF_VAR_region: ${{ vars.REGION }}
+      TF_VAR_domain_name: ${{ vars.DOMAIN_NAME }}
+      TF_VAR_subdomain_name: ${{ vars.SUBDOMAIN_NAME }}
+      TF_VAR_acm_certificate_arn: ${{ secrets.ACM_CERTIFICATE_ARN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.REGION }}
+
+      - name: Set name environment
+        run: |
+          echo "environment=$GITHUB_REF_NAME" >> $GITHUB_ENV
+          # echo "environment=${{ github.event.inputs.choice-branch }}" >> $GITHUB_ENV
+
+      - name: Download plan artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: planfile
+          path: infrastructure/terraform/environments/${{ env.environment }}/frontend-whisper/
+
+      - name: Terraform Workflow
+        working-directory: infrastructure/terraform/environments/${{ env.environment }}/frontend-whisper
+        run: |
+          terraform init
+          terraform apply -input=false "planfile"

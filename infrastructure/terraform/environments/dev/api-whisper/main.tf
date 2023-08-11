@@ -10,7 +10,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "ap-southeast-1"
+  region = var.region
 }
 
 module "lambda" {
@@ -19,8 +19,8 @@ module "lambda" {
   function_name  = "my_function"  
   memory_size    = 1500
   lambda_timeout = 120
-  image_tag      = "latest"
-  whisper_ecr_repo = "docker-lambda"
+  image_tag      = var.image_tag
+  whisper_ecr_repo = var.whisper_ecr_repo
   environment = {
     APP_NAME   = "Lambda_4_api_gateway_example"
   }
@@ -31,10 +31,10 @@ module "api_gatewayv2" {
 
   lambda_arn = module.lambda.arn
   lambda_invoke_arn = module.lambda.invoke_arn
-  certificate_arn = "arn:aws:acm:ap-southeast-1:236060519813:certificate/792f2902-0c70-40af-b238-58e629b86a2a"
+  certificate_arn = var.acm_certificate_arn
   api_gateway_description = "An example API Gateway"
   apigateway_name = "whisper-http-api"
-  api_domain_name = "api-whisper.markpage2k1.dev"
+  api_domain_name = var.subdomain_name
 }
 
 module "route53" {
@@ -43,5 +43,5 @@ module "route53" {
   subdomain_name = module.api_gatewayv2.domain_name
   alias_target_domain_name = module.api_gatewayv2.target_domain_name
   alias_hosted_zone_id = module.api_gatewayv2.hosted_zone_id
-  domain_name = "markpage2k1.dev"
+  domain_name = var.domain_name
 }

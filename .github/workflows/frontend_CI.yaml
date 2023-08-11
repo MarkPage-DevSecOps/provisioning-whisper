@@ -10,6 +10,9 @@ jobs:
   build:
     name: Build source and Synch to S3
     runs-on: ubuntu-latest
+    env:
+      S3_Bucket_Name: ${{ vars.S3_BUCKET_NAME }}
+
  
     strategy:
       matrix:
@@ -19,6 +22,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1-node16
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ vars.REGION }}
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -34,4 +44,4 @@ jobs:
 
     - name: Check Result Build
       working-directory: frontend
-      run: ls
+      run: aws s3 cp build s3://$S3_Bucket_Name --recursive

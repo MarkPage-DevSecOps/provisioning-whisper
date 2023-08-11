@@ -14,7 +14,7 @@ function App() {
   const fileInputRef = useRef(null);
 
   const handleFileInputClick = () => {
-    if (isProcessing == false) fileInputRef.current.click();
+    if (isProcessing === false) fileInputRef.current.click();
   }
 
   const uploadFile = (event) => {
@@ -54,7 +54,7 @@ function App() {
           newFiles[newFiles.length - 1].loading = Math.floor((loaded / total) * 100);
           return newFiles;
         })
-        if (loaded == total){
+        if (loaded === total){
           const fileSize = total < 1024
           ? `${total}kb`
           : `${(loaded / (1020*1024)).toFixed(2)}Mb`;
@@ -82,7 +82,7 @@ function App() {
         <form onClick={handleFileInputClick}>
           <input className='file-input' type='file' name='file' accept='audio/mpeg' hidden ref={fileInputRef} onChange={uploadFile}/>
           <div className='icon'>
-            <img src='/images/icons/upload.svg'/>
+            <img src='/images/icons/upload.svg' alt=""/>
           </div>
           <p>Browse File to upload</p>
           <p className='file-size'>(Min size: 0Mb / Max size: 5Mb)</p>

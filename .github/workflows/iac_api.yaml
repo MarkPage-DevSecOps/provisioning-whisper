@@ -1,4 +1,4 @@
-name: IaC Provision Frontend Whisper
+name: IaC Provision API Whisper
 on:
   # workflow_dispatch:
 

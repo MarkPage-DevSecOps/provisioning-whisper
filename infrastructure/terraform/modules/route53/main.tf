@@ -4,7 +4,7 @@ data "aws_route53_zone" "whisper-zone" {
 }
 
 resource "aws_route53_record" "whisper-record" {
-  name    = var.source_domain_name
+  name    = var.subdomain_name
   type    = "A"
   zone_id = data.aws_route53_zone.whisper-zone.zone_id
 

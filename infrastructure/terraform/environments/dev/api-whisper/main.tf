@@ -40,7 +40,7 @@ module "api_gatewayv2" {
 module "route53" {
   source = "../../../modules/route53"
 
-  source_domain_name = module.api_gatewayv2.domain_name
+  subdomain_name = module.api_gatewayv2.domain_name
   alias_target_domain_name = module.api_gatewayv2.target_domain_name
   alias_hosted_zone_id = module.api_gatewayv2.hosted_zone_id
   domain_name = "markpage2k1.dev"

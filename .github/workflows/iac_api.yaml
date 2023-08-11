@@ -1,6 +1,13 @@
 name: IaC Provision API Whisper
 on:
   workflow_dispatch:
+    inputs:
+      choice-branch:
+        type: choice
+        description: "Choose the environment (branches) to provision."
+        required: true
+        default: 'dev'
+        options: ['dev', 'prod'] 
 
   # push:
   #   branches:

@@ -1,11 +1,11 @@
 name: IaC Provision API Whisper
 on:
-  # workflow_dispatch:
+  workflow_dispatch:
 
-  push:
-    branches:
-      - dev
-      # - prod
+  # push:
+  #   branches:
+  #     - dev
+  #     # - prod
 
 permissions:
   contents: read
@@ -35,8 +35,8 @@ jobs:
 
       - name: Set name environment
         run: |
-          echo "environment=$GITHUB_REF_NAME" >> $GITHUB_ENV
-          # echo "environment=${{ github.event.inputs.choice-branch }}" >> $GITHUB_ENV
+          # echo "environment=$GITHUB_REF_NAME" >> $GITHUB_ENV
+          echo "environment=${{ github.event.inputs.choice-branch }}" >> $GITHUB_ENV
 
       - name: Terraform Workflow
         working-directory: infrastructure/terraform/environments/${{ env.environment }}/api-whisper
@@ -76,8 +76,8 @@ jobs:
 
       - name: Set name environment
         run: |
-          echo "environment=$GITHUB_REF_NAME" >> $GITHUB_ENV
-          # echo "environment=${{ github.event.inputs.choice-branch }}" >> $GITHUB_ENV
+          # echo "environment=$GITHUB_REF_NAME" >> $GITHUB_ENV
+          echo "environment=${{ github.event.inputs.choice-branch }}" >> $GITHUB_ENV
 
       - name: Download plan artifacts
         uses: actions/download-artifact@v3

@@ -22,5 +22,5 @@ jobs:
       working-directory: api-whisper
       run: |
         docker images
-        docker build $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$WHISPER_ECR_REPO .
+        docker build -t $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$WHISPER_ECR_REPO .
         docker images

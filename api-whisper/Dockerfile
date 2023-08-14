@@ -20,5 +20,6 @@ COPY audio.mp3 .
 RUN whisper audio.mp3 --model tiny --model_dir .
 # --model {tiny.en,tiny,base.en,base,small.en,small,medium.en,medium,large-v1,large-v2,large}
 COPY lambda_function.py .
+RUN ls && pwd
 
 CMD ["lambda_function.lambda_handler"]

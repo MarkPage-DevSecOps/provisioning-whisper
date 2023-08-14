@@ -3,7 +3,7 @@ import base64
 import json
 import os
 
-model = whisper.load_model(name="base", download_root="./")
+model = whisper.load_model(name="tiny", download_root="./")
 
 file_path = '/tmp/audio.mp3'
 

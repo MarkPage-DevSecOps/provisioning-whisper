@@ -1,4 +1,4 @@
-FROM alpine:3.18.3 as ffmpeg-builder
+FROM alpine:3.17.5 as ffmpeg-builder
 
 RUN cd /usr/local/bin && \
     mkdir ffmpeg && \

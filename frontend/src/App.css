@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  padding: 10px;
+  background: #0086f2;
+}
+
+.upload-box > p{
+  text-align: center;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+p.file-size{
+  margin-top: 0px;
+  font-size: 13px;
+}
+
+img {
+  width: 100%;
+}
+
+.icon {
+  width: 90px;
+  height: 90px;
+}
+
+.upload-box {
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 7px 7px 12px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.upload-box form {
+  height: 170px;
+  display: flex;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 2px dashed #0086f2; 
+}
+
+.respone-box {
+  margin-top: 50px;
+  width: 100%;
+  background: #67c58b;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 7px 7px 12px rgba(0, 0, 0, 0.5);
+  height: min-content;
+  min-height: 100px;
+}
+
+.respone-box h2 {
+  text-align: center;
+}
+
+.respone-box p {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+
+form :where(i, p){
+  color: #0086f2;
+}
+
+form i{
+  font-size: 50px;
+}
+
+form p{
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+section .row{
+  margin-bottom: 10px;
+  background: #d5ebff;
+  list-style: none;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+section .row i {
+  color: #0086f2;
+  font-size: 30px;
+}
+
+section .details span{
+  font-size: 12px;
+}
+
+.loading-area .row .content{
+  width: 100%;
+  margin-left: 15px;
+}
+
+.loading-area .details{
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+  justify-content: space-between;
+}
+
+.loading-area .content .loading-bar{
+  height: 6px;
+  width: 100%;
+  margin-bottom: 4px;
+  background: #fff;
+  border-radius: 30px;
+}
+
+.content .loading-bar .loading{
+  height: 100%;
+  width: 10%;
+  background: #0086f2;
+  border-radius: inherit;
+}
+
+.uploaded-area{
+  overflow: scroll;
+}
+
+.uploaded-area.onpregess{
+  max-height: 150px;
+}
+
+.uploaded-area::-webkit-scrollbar{
+  width: 0px;
+}
+
+.uploaded-area .row .content{
+  display: flex;
+  align-items: center;
+}
+
+.uploaded-area .row .details{
+  display: flex;
+  margin-left: 15px;
+  flex-direction: column;
+}
+
+.uploaded-area .row .details .size{
+  color: #404040;
+  font-size: 11px;
+}
+
+.uploaded-area i.fa-check{
+  font-size: 16px;
+}
+
+.waiting-response {
+  text-align: center;
+}
